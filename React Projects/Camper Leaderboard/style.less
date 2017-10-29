@@ -1,6 +1,41 @@
-header {
-  .fcclogo{
+html,body{
+	font-size: 1em;
+}
+
+header, footer {
+	background-color: #333;
+	color: #FFF;
+	width: 100%;
+}
+
+footer {
+	height: 40px;
+	line-height: 40px;
+}
+
+.fcc-logo {
 	margin-top: 10px;
 	width: 250px;
-  }
+}
+
+.user-img {
+	height: 50px;
+}
+
+.container{
+	margin-top: 15px;
+}
+
+.table > tbody > tr > td, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > td, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > thead > tr > th {
+	line-height: 5em;
+}
+
+.active::after{
+	color: #337ab7;
+	content:" ▼";
 }
