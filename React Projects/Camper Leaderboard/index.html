@@ -39,40 +39,19 @@ class Footer extends React.Component{
 };
 
 class List extends React.Component{
-	constructor(props){
-	super(props);
-	this.state = {
-	loading: true,
-	value: null,
-	error: null,
-};
-this.getData = this.getData.bind(this);
-};
-
-getData(){
-	$.get(this.props.source).then(
-	value => this.setState({loading: false, value: value}),
-	error => this.setState({loading: false, error: error})
-	);
-};
-
-componentDidMount() {
-	this.getData();
-};
-
 render(){
-	if(this.state.loading){
-		return (<span>Loadding...</span>)
-	}else if(this.state.error !== null){
-		console.log("Error: ", this.state.error);
+	if(this.props.loading){
+		return (<h1 className="text-center">Loadding...</h1>)
+	}else if(this.props.error !== null){
+		console.log("Error: ", this.props.error);
 		return(
 			<div>
-			<h1>{this.state.error.status}</h1>
-			<h2>{this.state.error.statusText}</h2>
+			<h1>{this.props.error.status}</h1>
+			<h2>{this.props.error.statusText}</h2>
 			</div>
 	)
 	}else{
-		let repos = this.state.value;
+		let repos = this.props.value;
 		console.log("Value: ", repos);
 		let repoList = repos.map((val, ind) => {
 			return(
@@ -99,31 +78,42 @@ class Body extends React.Component{
 constructor(props){
 	super(props);
 	this.state = {
-		current: "http://fcctop100.herokuapp.com/api/fccusers/top/recent",
-		index: true
+		index: true,
+		loading: true,
+		value: null,
+		error: null
 	};
 	this.recent = this.recent.bind(this);
 	this.alltime = this.alltime.bind(this);
+	this.getData = this.getData.bind(this);
+};
+
+componentDidMount() {
+	this.getData("http://fcctop100.herokuapp.com/api/fccusers/top/recent");
+};
+
+getData(str){
+	$.get(str).then(
+	value => this.setState({loading: false, value: value}),
+	error => this.setState({loading: false, error: error})
+	);
 };
 
 recent(){
 	this.setState({
-		current: "http://fcctop100.herokuapp.com/api/fccusers/top/recent",
 		index: true
 	});
-	this.refs.getNewData.getData();
+	this.getData("http://fcctop100.herokuapp.com/api/fccusers/top/recent");
 };
 
 alltime(){
 	this.setState({
-		current: "http://fcctop100.herokuapp.com/api/fccusers/top/alltime",
 		index: false
 	});
-	this.refs.getNewData.getData();
+	this.getData("http://fcctop100.herokuapp.com/api/fccusers/top/alltime");
 };
 
 render(){
-	let link = this.state.current;
 	return(
 		<div className="container">
 		<h1 className="text-center">LederBoard</h1>
@@ -136,7 +126,7 @@ render(){
 		<th className={`text-center ${!this.state.index && "active"}`} onClick={this.alltime}><a>All time points</a></th>
 		</tr>
 		</thead>
-		<List source={link} ref="getNewData"/>
+		<List value={this.state.value} loading={this.state.loading} error={this.state.error}/>
 		</table>
 		</div>
 		)
