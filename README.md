@@ -7,5 +7,5 @@ react project
 
 2. [排行版](https://ngekaworu.github.io/FCC/React%20Projects/Camper%20Leaderboard/index.html)
 
-3. [菜谱](https://ngekaworu.github.io/FCC/React%20Projects/Recipe%Box/index.html)
+3. [菜谱](https://ngekaworu.github.io/FCC/React%20Projects/Recipe%20Box/index.html)
 
